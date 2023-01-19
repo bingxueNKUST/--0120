@@ -1,0 +1,130 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="container mt-10">
+  <div class="row ">
+    <div class="col-4">
+      <div class="col-12">
+        <!-- 進階 card -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">篩選條件</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                  <form action="" method="POST" class="form-group needs-validation" novalidate>
+
+                    {% csrf_token %}
+
+                    <div class="col-md-12">
+                        <!-- 高度 -->
+                          <label>高度</label>
+                          <select name="width" class="form-control" required>
+                            <option disabled selected value="">請選擇高度</option>
+                            {% for size in width %}
+                              <option value="{{ size }}">{{size}}</option>
+                            {% endfor %}
+                          </select>
+                          <div class="invalid-feedback">請選擇高度</div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <!-- 寬度 -->
+                          <label>寬度</label>
+                          <select name="height" class="form-control" required>
+                            <option disabled selected value="">請選擇寬度</option>
+                            {% for size in height %}
+                              <option value="{{ size }}">{{size}}</option>
+                            {% endfor %}
+                          </select>
+                          <div class="invalid-feedback">請選擇寬度</div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div>
+                        <label>steps</label>
+                        <input type="number" min="5" max="500" name="steps" step="5" value="5" class="form-control" required />
+                        <div class="invalid-feedback">請輸入steps</div>
+                      </div>
+                    </div><!-- column -->
+                    
+                    <div class="col-md-12">
+                      <div>
+                        <label>scale</label>
+                        <input type="number" min="1" max="20" name="scale" step="0.5" value="1" class="form-control"  required />
+                        <div class="invalid-feedback">請輸入scale</div>
+                      </div>
+                    </div><!-- column -->
+
+                    <div class="col-md-12">
+                        <label>seed</label>
+                        <input type="number" name="seed" min="1" max="20" step="0.5" value="1" class="form-control" required />
+                        <div class="invalid-feedback">請輸入seed</div>
+                    </div><!-- column -->
+                </div> <!-- row -->
+            </div><!-- card body -->
+        </div><!-- card -->
+      </div>
+
+      <div class="col-12 mt-10">
+        <!-- prompt -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="h6 text-uppercase mb-0">prompt</h3>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                  
+                    <div class="col-md-12">
+                        <!-- prompt 測試中 功能未完整 -->
+                        <div class="btn-box">
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">1</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">2</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">3</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">4</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">5</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">6</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">7</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">8</button>
+                          <button class="btn btn-outline-dark radius" type="button" name="prompt" onclick="changeColor(this)">9</button>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-block text-center mt-10">
+                      <button class="btn btn-outline-success" type="submit">產生圖片</button>
+                      <button class="btn btn-outline-danger" type="reset">清除表單</button>
+                    </div>
+
+                  </form>
+                </div> <!-- row -->
+            </div><!-- card body -->
+        </div><!-- card -->
+      </div>
+    </div><!-- col-4 -->
+  
+    <div class="col-8">
+      <div class="col-12">
+        <div>{% load static %}<img src="{% static image %}" alt="hi" class="w-300h-500" /></div>
+      </div>
+
+      <div class="col-12 mt-10">
+          <label>敘述你的故事!</label>
+          <textarea name="description" class="form-control" rows="3" cols="33" ></textarea>
+
+          <div class="d-grid gap-2 d-md-block right mt-10">
+            <button class="btn btn-outline-success" type="submit" required>輸出文字</button>
+          </div>
+      </div>
+    </div>
+  </div><!-- row -->
+</div><!-- container -->
+
+{% endblock %}
+
+
+<!-- 日記 -->
+  <!-- 20230120 -->
+    <!-- form需要重新設計，輸出文字一組form，進階與prompt一組 -->
+    <!-- 文字尚無預覽功能，相關技術搜尋中，空間暫時留在圖片右側 -->
+    <!-- 底下的頁面新增功能，目前想到虛擬新增方法，但版面思考中，
+      　 相關技術：http://mirlab.org/jang/books/javascript/dynamicSelect.asp?title=7-3%20%B0%CA%BAA%A4U%A9%D4%A6%A1%BF%EF%B3%E6 -->
+    <!-- form驗證功能 OK -->
